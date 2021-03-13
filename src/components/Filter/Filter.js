@@ -10,6 +10,7 @@ function Filter({ value, searchContact }) {
 
   return (
     <div className={s.containerSearch}>
+      <h2 className={s.contactList}>Контакты</h2>
       <label className={s.labelSearch} htmlFor={id}>
         Поиск контакта по имени
       </label>
