@@ -13,7 +13,7 @@ const NavBar = ({ IsAuthenticated }) => {
 };
 
 const mapStateToProps = (state) => ({
-  IsAuthenticated: authSelectors.getIsAuthenticated(state),
+  // IsAuthenticated: authSelectors.getIsAuthenticated(state),
 });
 
 export default connect(mapStateToProps)(NavBar);
