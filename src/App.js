@@ -5,6 +5,7 @@ import { Route, Switch } from "react-router";
 // import Filter from "./components/Filter/Filter";
 // import СontactForm from "./components/ContactForm/ContactForm";
 // import style from "./components/Title/Title.module.css";
+import "./App.css";
 import s from "./components/ContactForm/ContactForm.module.css";
 // import Title from "./components/Title/Title";
 import { ToastContainer } from "react-toastify";
@@ -16,7 +17,8 @@ import RegistrView from "./components/views/RegistrView";
 import NavBar from "./components/AppBar/NavBar";
 import ContactsView from "./components/views/ContactsView";
 import authOperations from "./redux/auth/auth-operations";
-import "./App.css";
+import PrivateRoute from "./components/AppBar/PrivateRoute";
+import PublicRoute from "./components/AppBar/PublicRoute";
 
 class Phonebook extends Component {
   // state = {};
@@ -32,9 +34,24 @@ class Phonebook extends Component {
         <ToastContainer autoClose={3000} />
         <Switch>
           <Route exact path="/" component={HomeView} />
-          <Route exact path="/registration" component={RegistrView} />
-          <Route exact path="/login" component={LoginView} />
-          <Route exact path="/contacts" component={ContactsView} />
+          <PublicRoute
+            path="/registration"
+            restricted
+            redirectTo="/contacts"
+            component={RegistrView}
+          />
+          <PublicRoute
+            path="/login"
+            restricted
+            redirectTo="/contacts"
+            component={LoginView}
+          />
+          <PrivateRoute
+            exact
+            path="/contacts"
+            redirectTo="/login"
+            component={ContactsView}
+          />
         </Switch>
         {/* <Title />
         <Form />
