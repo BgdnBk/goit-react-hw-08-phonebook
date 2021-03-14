@@ -1,28 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, Suspense, lazy } from "react";
 import { connect } from "react-redux";
-import { Route, Switch } from "react-router";
-// import Form from "./components/Form/Form";
-// import Filter from "./components/Filter/Filter";
-// import СontactForm from "./components/ContactForm/ContactForm";
-// import style from "./components/Title/Title.module.css";
+import { Switch } from "react-router";
 import "./App.css";
 import s from "./components/ContactForm/ContactForm.module.css";
-// import Title from "./components/Title/Title";
 import { ToastContainer } from "react-toastify";
-import phonebookOperation from "../src/redux/phonebook/phonebook-operation";
 import "react-toastify/dist/ReactToastify.css";
-import HomeView from "./components/views/HomeView";
-import LoginView from "./components/views/LoginView";
-import RegistrView from "./components/views/RegistrView";
 import NavBar from "./components/AppBar/NavBar";
-import ContactsView from "./components/views/ContactsView";
 import authOperations from "./redux/auth/auth-operations";
 import PrivateRoute from "./components/AppBar/PrivateRoute";
 import PublicRoute from "./components/AppBar/PublicRoute";
 
-class Phonebook extends Component {
-  // state = {};
+const HomeView = lazy(() => import("./components/views/HomeView"));
+const LoginView = lazy(() => import("./components/views/LoginView"));
+const RegistrView = lazy(() => import("./components/views/RegistrView"));
+const ContactsView = lazy(() => import("./components/views/ContactsView"));
 
+class Phonebook extends Component {
   componentDidMount() {
     this.props.onGetCurrentUser();
   }
@@ -32,31 +25,29 @@ class Phonebook extends Component {
       <div className={s.container}>
         <NavBar />
         <ToastContainer autoClose={3000} />
-        <Switch>
-          <Route exact path="/" component={HomeView} />
-          <PublicRoute
-            path="/registration"
-            restricted
-            redirectTo="/contacts"
-            component={RegistrView}
-          />
-          <PublicRoute
-            path="/login"
-            restricted
-            redirectTo="/contacts"
-            component={LoginView}
-          />
-          <PrivateRoute
-            exact
-            path="/contacts"
-            redirectTo="/login"
-            component={ContactsView}
-          />
-        </Switch>
-        {/* <Title />
-        <Form />
-        <Filter />
-        <СontactForm /> */}
+        <Suspense fallback={<p>Сейчас всё будет</p>}>
+          <Switch>
+            <PublicRoute exact path="/" component={HomeView} />
+            <PublicRoute
+              path="/registration"
+              restricted
+              redirectTo="/contacts"
+              component={RegistrView}
+            />
+            <PublicRoute
+              path="/login"
+              restricted
+              redirectTo="/contacts"
+              component={LoginView}
+            />
+            <PrivateRoute
+              exact
+              path="/contacts"
+              redirectTo="/login"
+              component={ContactsView}
+            />
+          </Switch>
+        </Suspense>
       </div>
     );
   }
@@ -67,4 +58,3 @@ const mapDispatchToProps = {
 };
 
 export default connect(null, mapDispatchToProps)(Phonebook);
-// export default connect(null, mapDispatchToProps)(Phonebook);

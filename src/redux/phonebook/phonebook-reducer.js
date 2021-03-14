@@ -45,6 +45,3 @@ export default combineReducers({
   filter,
   loading,
 });
-
-// addContactSuccess;
-// [action.addContact];

@@ -2,8 +2,6 @@ import React from "react";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import s from "../ContactForm/ContactForm.module.css";
 import { connect } from "react-redux";
-// import phonebookOperations from "../../redux/phonebook/phonebook-operation";
-// import phonebookSelector from "../../redux/phonebook/phonebook-selector";
 import { phonebookOperations, phonebookSelector } from "../../redux/phonebook";
 
 function СontactForm({ contactList, onDeleted }) {
@@ -28,15 +26,6 @@ function СontactForm({ contactList, onDeleted }) {
     </TransitionGroup>
   );
 }
-
-// const getFilter = (allContacts, filter) => {
-//   const filterValues = filter.toLowerCase();
-//   console.log(allContacts);
-
-//   return allContacts.filter(({ name }) =>
-//     name?.toLowerCase().includes(filterValues)
-//   );
-// };
 
 const mapStateToProps = (state) => ({
   contactList: phonebookSelector.getPhonebookFilter(state),

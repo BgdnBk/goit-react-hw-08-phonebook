@@ -33,19 +33,13 @@ class Form extends Component {
   addContact = (e) => {
     e.preventDefault();
 
-    // const checkName = this.props.contactList({ name: this.state.name });
     const checNumer = this.state.number;
-
-    // if (checkName) {
-    //   return toast.error("Это имя уже существует");
-    // }
 
     if (checNumer === "") {
       return toast.error("Введите номер");
     }
 
     this.props.onSubmit({
-      // id: shortid.generate(),
       name: this.state.name,
       number: this.state.number,
     });

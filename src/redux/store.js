@@ -1,8 +1,4 @@
-import {
-  configureStore,
-  combineReducers,
-  getDefaultMiddleware,
-} from "@reduxjs/toolkit";
+import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import {
   persistStore,
   persistReducer,
@@ -25,18 +21,6 @@ const middleware = [
   }),
 ];
 
-// const rootReducer = combineReducers({
-//   phonebook: phonebookReducer,
-//   auth: authReducers,
-// });
-
-// const persistConfig = {
-//   key: "root",
-//   storage,
-// };
-
-// const persistedReducer = persistReducer(persistConfig, authReducer);
-
 const authPersistConfig = {
   key: "auth",
   storage,
@@ -55,8 +39,3 @@ const store = configureStore({
 const persistor = persistStore(store);
 
 export default { store, persistor };
-
-// {
-//     phonebook: phonebookReducer,
-//     auth: authReducers,
-//   }
