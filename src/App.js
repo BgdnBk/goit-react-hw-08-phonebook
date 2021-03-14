@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Route, Switch } from "react-router";
-import Form from "./components/Form/Form";
-import Filter from "./components/Filter/Filter";
-import СontactForm from "./components/ContactForm/ContactForm";
+// import Form from "./components/Form/Form";
+// import Filter from "./components/Filter/Filter";
+// import СontactForm from "./components/ContactForm/ContactForm";
 // import style from "./components/Title/Title.module.css";
 import s from "./components/ContactForm/ContactForm.module.css";
-import Title from "./components/Title/Title";
+// import Title from "./components/Title/Title";
 import { ToastContainer } from "react-toastify";
 import phonebookOperation from "../src/redux/phonebook/phonebook-operation";
 import "react-toastify/dist/ReactToastify.css";
@@ -14,14 +14,15 @@ import HomeView from "./components/views/HomeView";
 import LoginView from "./components/views/LoginView";
 import RegistrView from "./components/views/RegistrView";
 import NavBar from "./components/AppBar/NavBar";
-
+import ContactsView from "./components/views/ContactsView";
+import authOperations from "./redux/auth/auth-operations";
 import "./App.css";
 
 class Phonebook extends Component {
-  state = {};
+  // state = {};
 
   componentDidMount() {
-    this.props.fetchContacts();
+    this.props.onGetCurrentUser();
   }
 
   render() {
@@ -33,18 +34,20 @@ class Phonebook extends Component {
           <Route exact path="/" component={HomeView} />
           <Route exact path="/registration" component={RegistrView} />
           <Route exact path="/login" component={LoginView} />
+          <Route exact path="/contacts" component={ContactsView} />
         </Switch>
-        <Title />
+        {/* <Title />
         <Form />
         <Filter />
-        <СontactForm />
+        <СontactForm /> */}
       </div>
     );
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchContacts: () => dispatch(phonebookOperation.fetchContacts()),
-});
+const mapDispatchToProps = {
+  onGetCurrentUser: authOperations.getCurrentUser,
+};
 
 export default connect(null, mapDispatchToProps)(Phonebook);
+// export default connect(null, mapDispatchToProps)(Phonebook);

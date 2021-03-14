@@ -11,6 +11,10 @@ class Form extends Component {
     number: "",
   };
 
+  componentDidMount() {
+    this.props.fetchContacts();
+  }
+
   InputValues = (e) => {
     const { name, value } = e.currentTarget;
 
@@ -98,6 +102,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  fetchContacts: () => dispatch(phonebookOperations.fetchContacts()),
   onSubmit: (newName, number, contactList) => {
     if (checkName(contactList, newName)) {
       return toast.error("Это имя уже существует");
