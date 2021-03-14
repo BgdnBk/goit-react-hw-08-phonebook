@@ -5,10 +5,10 @@ axios.defaults.baseURL = "https://goit-phonebook-api.herokuapp.com";
 
 const token = {
   set(token) {
-    axios.defaults.headers.common.Autorization = `Bearer ${token}`;
+    axios.defaults.headers.common.Authorization = `Bearer ${token}`;
   },
-  unseet() {
-    axios.defaults.headers.common.Autorization = "";
+  unset() {
+    axios.defaults.headers.common.Authorization = "";
   },
 };
 //  /users/signup
@@ -17,7 +17,8 @@ const register = (credential) => async (dispatch) => {
 
   try {
     const response = await axios.post("/users/signup", credential);
-    console.log("response.data", response.data);
+
+    token.set(response.data.token);
     dispatch(authActions.registerSuccess(response.data));
   } catch (error) {
     dispatch(authActions.registerError(error.message));
@@ -29,14 +30,26 @@ const login = (credential) => async (dispatch) => {
 
   try {
     const response = await axios.post("/users/login", credential);
-    console.log("response.data", response.data);
+
+    token.set(response.data.token);
     dispatch(authActions.loginSuccess(response.data));
   } catch (error) {
     dispatch(authActions.loginError(error.message));
   }
 };
+// /users/logout
+const logout = () => async (dispatch) => {
+  dispatch(authActions.logoutRequest());
 
-const logout = (credential) => (dispatch) => {};
+  try {
+    await axios.post("/users/logout");
+
+    token.unset();
+    dispatch(authActions.logoutSuccess());
+  } catch (error) {
+    dispatch(authActions.logoutError(error.message));
+  }
+};
 
 const getCurrentUser = () => (dispatch, getState) => {};
 

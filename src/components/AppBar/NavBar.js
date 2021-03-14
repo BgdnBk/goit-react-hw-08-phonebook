@@ -5,15 +5,17 @@ import UserMenu from "./UserMenu";
 import AuthNav from "./AuthNav";
 import { authSelectors } from "../../redux/auth/";
 
-const NavBar = ({ IsAuthenticated }) => {
-  <header>
-    <Navigation />
-    {IsAuthenticated ? <UserMenu /> : <AuthNav />}
-  </header>;
-};
+function NavBar({ IsAuthenticated }) {
+  return (
+    <header>
+      <Navigation />
+      {IsAuthenticated ? <UserMenu /> : <AuthNav />}
+    </header>
+  );
+}
 
 const mapStateToProps = (state) => ({
-  // IsAuthenticated: authSelectors.getIsAuthenticated(state),
+  IsAuthenticated: authSelectors.getIsAuthenticated(state),
 });
 
 export default connect(mapStateToProps)(NavBar);

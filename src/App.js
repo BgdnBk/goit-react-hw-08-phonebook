@@ -21,7 +21,7 @@ class Phonebook extends Component {
   state = {};
 
   componentDidMount() {
-    // this.props.fetchContacts();
+    this.props.fetchContacts();
   }
 
   render() {
